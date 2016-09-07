@@ -1,0 +1,42 @@
+.bar.first-bar::before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    display: block;
+    width: 1px;
+    background-color: black;
+}
+.bar::after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: block;
+    width: 1px;
+    background-color: black;
+}
+
+.bar {
+    flex:1;
+    height: 50px;
+    position: relative;
+    display: flex;
+}
+.line{
+    display: flex;
+    width: calc(100% - 60px);
+    margin: 30px;
+}
+.note{
+  flex:1;
+  height:100%;
+  font-size: 20px;
+  line-height: 50px;
+  text-align: center;
+}
+.current{
+  color:red;
+}
