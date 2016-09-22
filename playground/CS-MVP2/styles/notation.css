@@ -1,0 +1,14 @@
+@font-face{
+    font-family: musisync;
+    src: url('/fonts/MusiSync.ttf');
+}
+/*
+http://www.fontspace.com/robert-allgeyer/musisync
+*/
+.music{
+    font-family: musisync;
+}
+
+.music.time44:before{
+    content:'$'
+}

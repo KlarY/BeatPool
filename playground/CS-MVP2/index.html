@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <title>beats</title>
+    <script src="/scripts/angular.min.js"></script>
+    <script src="/scripts/underscore-min.js"></script>
+    <script src="scripts/data.js"></script>
+    <script src="scripts/beats.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/beats.css" />
+    <link rel="stylesheet" type="text/css" href="styles/notation.css" />
+</head>
+
+<body ng-app="score" ng-controller='pageController'>
+   
+    <page>
+        <canvas></canvas>
+       <div class="music sy"></div>
+        <line ng-repeat="line in part.lines">
+        
+        <measure ng-repeat="measure in line.measures" ng-style="{'width':measure.width, 'margin-left':measure.marginLeft}">
+           <div ng-if="measure.note._name != 'sm_Note'">
+            <note ng-repeat="note in measure.note" ng-style="{'left':note.x}">
+               {{note.toString()}}:{{note.duration}}
+            </note>
+           </div>
+           <div ng-if="measure.note._name == 'sm_Note'">
+            <note ng-style="{'left':measure.note.x}">
+               {{measure.note.toString()}}
+            </note>
+           </div>
+            
+        </measure>
+        
+        </line>
+    </page>
+</body>
+
+</html>

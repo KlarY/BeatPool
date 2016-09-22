@@ -1,0 +1,77 @@
+*{
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+body{
+    background-color: antiquewhite;
+    font-size: 18px;
+}
+
+page{
+    display: block;
+    height: 1683.36px;
+    width: 1190.88px;
+    background-color: white;
+    margin: 1em;
+    padding: 56.6929px;
+    position: relative;
+}
+
+page canvas{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
+
+line{
+    position: relative;
+    display: block;
+    float: right;
+    margin-right: 0;
+}
+
+line:after{
+    visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+measure:last-child{
+    border-right: 2px solid black;
+}
+
+measure{
+    position: relative;
+    display: block;
+    float:left;
+    min-height: 40px;
+    margin-bottom: 30px;
+    border-left: 2px solid black;
+}
+
+
+measure:after{
+    visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+note {
+    display: block;
+    position: absolute;
+    top: 10px;
+}
+
+line {
+    display: block;
+}
