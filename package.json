@@ -1,0 +1,28 @@
+{
+  "name": "mvp6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "./node_modules/typescript/bin/tsc test/*Test.ts --module commonjs --moduleResolution node",
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^3.4.33",
+    "@types/mocha": "^2.2.32",
+    "browserify": "^13.1.0",
+    "chai": "^3.5.0",
+    "gulp": "^3.9.1",
+    "gulp-mocha": "^3.0.1",
+    "gulp-typescript": "^2.14.1",
+    "mocha": "^3.0.2",
+    "tsify": "^1.0.7",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "chai": "^3.5.0",
+    "typescript": "^2.0.3"
+  }
+}
