@@ -1,5 +1,6 @@
 import {Sound} from "./Sound";
 import {Duration} from "./Duration";
+import * as _ from "lodash";
 export class SoundTrack{
     startTime: number;
     endTime: number;
@@ -32,13 +33,46 @@ export class SoundTrack{
     }
 
     insert(startTime: number, sound: Sound):void{
+        let endTime = startTime + sound.duration;
+        let startBlock = this.head.next;
+        let endBlock:Sound;
+        let offsetTime: number = 0;
+        let duringTime: number;
 
-        if (startTime == 0){
-            this.head.next.duration -= sound.duration;
+        while (startBlock.duration + offsetTime <= startTime){
+            offsetTime += startBlock.duration;
+            startBlock = startBlock.next;
+        }
 
-            sound.next = this.head.next;
-            this.head.next.prev = sound;
-            this.head.next = sound;
+        endBlock = startBlock;
+        duringTime = offsetTime;
+
+
+        while(endBlock.duration + duringTime < endTime){
+            duringTime += endBlock.duration;
+            endBlock = endBlock.next;
+        }
+
+        let prev = startBlock.prev;
+
+        if ( offsetTime == startTime ){
+            Sound.link(prev,sound);
+        }else {
+            let mid = new Sound(startBlock.step, startTime - offsetTime);
+
+            Sound.link(prev, mid);
+            Sound.link(mid, sound);
+        }
+
+        let next = endBlock.next;
+
+        if ( endBlock.duration + duringTime == endTime ){
+            Sound.link(sound, next);
+        }else {
+            let mid = new Sound(endBlock.step,  endBlock.duration + duringTime - endTime);
+
+            Sound.link(sound, mid);
+            Sound.link(mid, next);
         }
     }
 }
