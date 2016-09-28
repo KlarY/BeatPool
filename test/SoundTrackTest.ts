@@ -1,7 +1,8 @@
 import {expect} from "chai";
 import * as _ from "lodash";
 
-import {Duration} from "../src/model/Duration";
+import {Duration, DurationPack} from "../src/model/Duration";
+const {eighth, quarter} = DurationPack;
 import {SoundTrack} from "../src/model/SoundTrack";
 import {Sound, SoundPack} from "../src/model/Sound";
 const {STOP, A0, Bb0, B0, C1} = SoundPack;
@@ -75,6 +76,17 @@ describe("Sound Track Tests", ()=>{
             let sounds = soundTrack.sounds();
 
             expect(_.map(sounds, sound=>sound.step)).is.eql([STOP, A0, C1, B0, STOP]);
-        })
+        });
+
+        it("should insert Notes in batch", ()=>{
+            soundTrack.batchInsert([[0, new Sound(A0, quarter)],
+                                [quarter, new Sound(Bb0, quarter)],
+                                [quarter*2, new Sound(B0, quarter)],
+                                [quarter*3, new Sound(C1, quarter)]]);
+
+            let sounds = soundTrack.sounds();
+            expect(_.map(sounds, sound=>sound.step)).is.eql([A0, Bb0, B0, C1]);
+        });
+
     });
 });

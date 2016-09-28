@@ -24,6 +24,7 @@
   "dependencies": {
     "@types/lodash": "^4.14.36",
     "chai": "^3.5.0",
-    "typescript": "^2.0.3"
+    "typescript": "^2.0.3",
+    "typescript-collections": "^1.1.9"
   }
 }

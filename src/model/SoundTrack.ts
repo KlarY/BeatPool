@@ -32,6 +32,10 @@ export class SoundTrack{
         return sounds;
     }
 
+    batchInsert(soundList: [number, Sound][]){
+        _.map(soundList, sound=>this.insert(sound[0], sound[1]));
+    }
+
     insert(startTime: number, sound: Sound):void{
         let endTime = startTime + sound.duration;
         let startBlock = this.head.next;
