@@ -108,6 +108,13 @@ describe("Sound Track Tests", ()=>{
 
             expect(_.map(sounds, sound=>sound.duration)).is.eql([eighth]);
             expect(_.map(sounds, sound=>sound.step)).is.eql([A0]);
-        })
+        });
+
+        it("should get three beats at beginning", ()=>{
+            let sounds:Sound[] = soundTrack.period(0, full);
+
+            expect(_.map(sounds, sound=>sound.duration)).is.eql([half, quarter, quarter]);
+            expect(_.map(sounds, sound=>sound.step)).is.eql([A0, B0, C1]);
+        });
     })
 });

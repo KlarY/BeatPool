@@ -84,12 +84,22 @@ export class SoundTrack{
 
     period(begin: number, end: number):Sound[] {
         let [startOffset, startBlock] = this.atTime(begin);
-        let [endOffset, endBlock] = this.atTime(end);
+        let [endOffset, endBlock] = this.atTime(end, false);
 
         if (startBlock === endBlock){
             return [new Sound(startBlock.step, end - begin)];
+        }else {
+            let pt = startBlock.next;
+            let result: Sound[] = [new Sound(startBlock.step, startBlock.duration - (begin - startOffset))];
+
+            while (pt != endBlock){
+                result.push(new Sound(pt.step, pt.duration));
+                pt = pt.next;
+            }
+
+            result.push(new Sound(pt.step, end - endOffset));
+            return result;
         }
-        return [];
     }
 
     private atTime(time: number, floor: boolean = true):[number,Sound]{
