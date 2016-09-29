@@ -13,10 +13,10 @@ export class SoundTrack{
         this.startTime = startTime;
         this.endTime = endTime;
 
-        this.head = new Sound(Sound.convertStep("00"), Duration.quarter);
-        this.tail = new Sound(Sound.convertStep("00"), Duration.quarter);
+        this.head = new Sound(STOP, Duration.quarter);
+        this.tail = new Sound(STOP, Duration.quarter);
 
-        let empty = new Sound(Sound.convertStep("00"), endTime - startTime);
+        let empty = new Sound(STOP, endTime - startTime);
 
         this.head.next = empty;
         empty.next = this.tail;

@@ -1,10 +1,10 @@
 import {expect} from "chai";
 import * as _ from "lodash";
 
-import {Duration, DurationPack} from "../src/model/Duration";
+import {Duration, DurationPack} from "../../src/model/Duration";
 const {full,half, eighth, quarter} = DurationPack;
-import {SoundTrack} from "../src/model/SoundTrack";
-import {Sound, SoundPack} from "../src/model/Sound";
+import {SoundTrack} from "../../src/model/SoundTrack";
+import {Sound, SoundPack} from "../../src/model/Sound";
 const {STOP, A0, Bb0, B0, C1, D1, E1} = SoundPack;
 
 describe("Sound Track Tests", ()=>{
@@ -12,7 +12,7 @@ describe("Sound Track Tests", ()=>{
         let soundTrack = new SoundTrack(0,Duration.quarter * 8);
         expect(soundTrack.endTime).is.equal(Duration.quarter * 8);
         expect(soundTrack.sounds().length).is.equal(1);
-        expect(soundTrack.sounds()[0].step).is.equal(Sound.convertStep("00"));
+        expect(soundTrack.sounds()[0].step).is.equal(STOP);
     });
 
     describe("the two way link sequense of sound inside sound track", ()=>{
@@ -132,6 +132,6 @@ describe("Sound Track Tests", ()=>{
             sounds = soundTrack.period(0, half);
 
             expect(sounds[0].continue).is.equal(false);
-        })
+        });
     })
 });

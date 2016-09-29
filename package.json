@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pretest": "./node_modules/typescript/bin/tsc test/*Test.ts --module commonjs --moduleResolution node",
-    "test": "mocha"
+    "pretest": "./node_modules/typescript/bin/tsc test/**/*Test.ts --module commonjs --moduleResolution node",
+    "test": "mocha --recursive"
   },
   "author": "",
   "license": "ISC",
