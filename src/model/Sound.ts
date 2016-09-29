@@ -3,13 +3,15 @@ export class Sound{
     duration: number;
     next: Sound;
     prev: Sound;
+    continue: boolean;
 
-    constructor (step:number, duration:number){
+    constructor (step:number, duration:number, _continue: boolean = false){
         this.step = step;
         this.duration = duration;
 
         this.next = null;
         this.prev = null;
+        this.continue = _continue;
     }
     static convertStep(soundName: string) {
         switch(soundName){

@@ -96,8 +96,10 @@ export class SoundTrack{
                 result.push(new Sound(pt.step, pt.duration));
                 pt = pt.next;
             }
+            let cutted = ((end - endOffset) != pt.duration);
 
-            result.push(new Sound(pt.step, end - endOffset));
+            result.push(new Sound(pt.step, end - endOffset, cutted));
+
             return result;
         }
     }

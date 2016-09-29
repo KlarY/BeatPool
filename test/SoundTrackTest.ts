@@ -123,5 +123,15 @@ describe("Sound Track Tests", ()=>{
             expect(_.map(sounds, sound=>sound.duration)).is.eql([eighth, quarter, quarter,quarter, eighth]);
             expect(_.map(sounds, sound=>sound.step)).is.eql([A0, B0, C1,D1, E1]);
         });
+
+        it("cuttted sound at end should have an continue sign", ()=>{
+            let sounds = soundTrack.period(quarter+eighth, half+eighth);
+
+            expect(sounds[1].continue).is.equal(true);
+
+            sounds = soundTrack.period(0, half);
+
+            expect(sounds[0].continue).is.equal(false);
+        })
     })
 });
