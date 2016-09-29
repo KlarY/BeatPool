@@ -116,5 +116,12 @@ describe("Sound Track Tests", ()=>{
             expect(_.map(sounds, sound=>sound.duration)).is.eql([half, quarter, quarter]);
             expect(_.map(sounds, sound=>sound.step)).is.eql([A0, B0, C1]);
         });
+
+        it("should get cutted begin and nend ranged sounds", ()=>{
+            let sounds = soundTrack.period(quarter+eighth, full + quarter + eighth);
+
+            expect(_.map(sounds, sound=>sound.duration)).is.eql([eighth, quarter, quarter,quarter, eighth]);
+            expect(_.map(sounds, sound=>sound.step)).is.eql([A0, B0, C1,D1, E1]);
+        });
     })
 });
