@@ -23,6 +23,14 @@ export class Sound{
                 return 3;
             case "C1":
                 return 4;
+            case "Db1":
+                return 5;
+            case "D1":
+                return 6;
+            case "Eb1":
+                return 7;
+            case "E1":
+                return 8;
             default:
                 throw `unknown sound Name: ${soundName}`;
         }
@@ -41,5 +49,7 @@ export let SoundPack = {
     A0: Sound.convertStep("A0"),
     Bb0: Sound.convertStep("Bb0"),
     B0: Sound.convertStep("B0"),
-    C1: Sound.convertStep("C1")
+    C1: Sound.convertStep("C1"),
+    D1: Sound.convertStep("D1"),
+    E1: Sound.convertStep("E1")
 };

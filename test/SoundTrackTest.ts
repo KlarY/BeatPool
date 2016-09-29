@@ -2,10 +2,10 @@ import {expect} from "chai";
 import * as _ from "lodash";
 
 import {Duration, DurationPack} from "../src/model/Duration";
-const {eighth, quarter} = DurationPack;
+const {full,half, eighth, quarter} = DurationPack;
 import {SoundTrack} from "../src/model/SoundTrack";
 import {Sound, SoundPack} from "../src/model/Sound";
-const {STOP, A0, Bb0, B0, C1} = SoundPack;
+const {STOP, A0, Bb0, B0, C1, D1, E1} = SoundPack;
 
 describe("Sound Track Tests", ()=>{
     it("should have and empty Sound Track", ()=>{
@@ -87,6 +87,27 @@ describe("Sound Track Tests", ()=>{
             let sounds = soundTrack.sounds();
             expect(_.map(sounds, sound=>sound.step)).is.eql([A0, Bb0, B0, C1]);
         });
-
     });
+
+    describe("should get range of sound", ()=>{
+        let soundTrack = new SoundTrack(0, full * 2);
+        beforeEach("init", ()=>{
+            soundTrack.clear();
+            soundTrack.batchInsert([
+                [0, new Sound(A0, half)],
+                [half, new Sound(B0, quarter)],
+                [half+quarter, new Sound(C1, quarter)],
+                [full, new Sound(D1, quarter)],
+                [full+quarter, new Sound(E1, quarter)],
+                [full+half, new Sound(STOP, half)]
+            ]);
+        });
+
+        it("should get first 1 beat in middle of sound", ()=>{
+            let sounds:Sound[] = soundTrack.period(eighth, quarter);
+
+            expect(_.map(sounds, sound=>sound.duration)).is.eql([eighth]);
+            expect(_.map(sounds, sound=>sound.step)).is.eql([A0]);
+        })
+    })
 });

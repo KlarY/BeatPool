@@ -1,5 +1,7 @@
-import {Sound} from "./Sound";
+import {Sound, SoundPack} from "./Sound";
 import {Duration} from "./Duration";
+let {STOP} = SoundPack;
+
 import * as _ from "lodash";
 export class SoundTrack{
     startTime: number;
@@ -78,5 +80,33 @@ export class SoundTrack{
             Sound.link(sound, mid);
             Sound.link(mid, next);
         }
+    }
+
+    period(begin: number, end: number):Sound[] {
+        let [startOffset, startBlock] = this.atTime(begin);
+        let [endOffset, endBlock] = this.atTime(end);
+
+        if (startBlock === endBlock){
+            return [new Sound(startBlock.step, end - begin)];
+        }
+        return [];
+    }
+
+    private atTime(time: number, floor: boolean = true):[number,Sound]{
+        let offset = this.startTime;
+        let pt = this.head.next;
+
+        while (offset + pt.duration < time || (floor === true && offset+pt.duration == time) ){
+            if( pt == this.tail ) throw "Find Time Error, not found";
+            offset += pt.duration;
+            pt = pt.next;
+        }
+        return [offset, pt];
+    }
+
+    clear() {
+        let stop = new Sound(STOP, this.endTime - this.startTime);
+        Sound.link(this.head, stop);
+        Sound.link(stop, this.tail);
     }
 }
