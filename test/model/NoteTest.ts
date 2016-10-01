@@ -15,5 +15,12 @@ describe("Note Test", ()=>{
 
         note = new Note(new Sound(D1, half));
         expect(note.display).is.equal("2");
-    })
+    });
+    it("should have the right note Type", ()=>{
+        let note = new Note(new Sound(C1, quarter));
+        expect(note.type).is.equal("quarter");
+
+        note = new Note(new Sound(D1, half + quarter));
+        expect(note.type).is.equal("half");
+    });
 });
