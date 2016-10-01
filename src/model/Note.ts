@@ -11,11 +11,14 @@ export class Note {
         this.display = (Note.convertStepToNumber(sound.step)).toString();
         this.type = (Note.convertDurationToType(sound.duration)).toString();
 
-
         this.duration = sound.duration;
         this.step = sound.step;
         if (isHyphen){
             this.display = "-";
+        }
+
+        if (this.duration == DurationPack[this.type] * 1.5){
+            this.display += ".";
         }
     }
     private static convertStepToNumber(step:number):number {
