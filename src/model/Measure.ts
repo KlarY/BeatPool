@@ -22,7 +22,7 @@ export class Measure{
         this.soundTrack = soundTrack;
     }
 
-    update() {
+    private getBeatsBeTogether():boolean[]{
         let measureSounds:Sound[] = this.soundTrack.period(this.startTime, this.endTime);
         let beatBeginTimes:[number,number][] = [[0, _.first(measureSounds).duration]];
         for(let idx=1; idx < measureSounds.length; idx +=1 ){
@@ -43,6 +43,11 @@ export class Measure{
                 }
             }
         });
+        return togetherBuffer;
+    }
+
+    update() {
+        let togetherBuffer = this.getBeatsBeTogether();
 
         for (let beats = 0; beats < this.beatTimes; beats += 1){
             let beatStart = this.startTime + beats*this.beatDuration;
