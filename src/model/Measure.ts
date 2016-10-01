@@ -3,9 +3,12 @@ import * as _ from "lodash";
 import {Sound} from "./Sound";
 import {Note} from "./Note";
 import {SoundTrack} from "./SoundTrack";
+import {DurationPack} from "./Duration";
+let {quarter, half} = DurationPack;
 
 export class Measure{
     startTime:number;
+    endTime:number;
     beatDuration: number;
     beatTimes: number;
     notes: Note[] = [];
@@ -13,15 +16,45 @@ export class Measure{
 
     constructor(startTime:number, beatDuration:number, beatTimes:number, soundTrack:SoundTrack = null ){
         this.startTime = startTime;
+        this.endTime = startTime + beatDuration * beatTimes;
         this.beatDuration = beatDuration;
         this.beatTimes = beatTimes;
         this.soundTrack = soundTrack;
     }
 
     update() {
+        let measureSounds:Sound[] = this.soundTrack.period(this.startTime, this.endTime);
+        let beatBeginTimes:[number,number][] = [[0, _.first(measureSounds).duration]];
+        for(let idx=1; idx < measureSounds.length; idx +=1 ){
+            beatBeginTimes.push([beatBeginTimes[idx-1][0] + beatBeginTimes[idx-1][1], measureSounds[idx].duration]);
+        }
+
+        let togetherBuffer:boolean[] = Array(this.beatTimes);
+        for (let idx of _.range(this.beatTimes)){
+            togetherBuffer[idx] = false;
+        }
+
+        _.map(beatBeginTimes, ([_start, _dur])=>{
+            if (_dur > quarter && _dur < half){
+                let leftBeat = ~~(_start/this.beatDuration);
+                let rightBeat = ~~((_start+_dur)/this.beatDuration);
+                for(let i =leftBeat; i<=rightBeat; i+=1){
+                    togetherBuffer[i] = true;
+                }
+            }
+        });
+
         for (let beats = 0; beats < this.beatTimes; beats += 1){
             let beatStart = this.startTime + beats*this.beatDuration;
-            let beatEnd = beatStart + this.beatDuration;
+
+            if(togetherBuffer[beats]){
+                while(togetherBuffer[beats]){
+                    beats += 1;
+                }
+                beats -= 1;
+            }
+
+            let beatEnd = this.startTime + (beats+1)*this.beatDuration;
 
             let sounds = this.soundTrack.period(beatStart, beatEnd);
 
