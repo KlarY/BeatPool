@@ -9,10 +9,10 @@ let {C1, D1} = SoundPack;
 describe("Logical Measure Tests", ()=>{
     it("should initial Measure, notes length equals sound length", ()=>{
         let measure = new Measure(0, quarter, 4);
-        let soundList = [new Sound(C1,quarter),new Sound(D1, quarter),new Sound(C1, half, true)];
+        let soundList = [new Sound(C1,quarter),new Sound(D1, quarter),new Sound(C1, quarter, true), new Sound(D1,quarter)];
 
         measure.update(soundList);
 
-        expect(measure.notes.length).is.equal(3);
+        expect(measure.notes.length).is.equal(4);
     });
 });
