@@ -86,19 +86,23 @@ export class SoundTrack{
         let [startOffset, startBlock] = this.atTime(begin);
         let [endOffset, endBlock] = this.atTime(end, false);
 
+        let isFollow:boolean = (startOffset < begin) || startBlock.follow;
+        let isContinue:boolean = (end < endOffset + endBlock.duration) || startBlock.continue;
+
         if (startBlock === endBlock){
-            return [new Sound(startBlock.step, end - begin)];
+            return [new Sound(startBlock.step, end - begin, isFollow, isContinue)];
         }else {
             let pt = startBlock.next;
-            let result: Sound[] = [new Sound(startBlock.step, startBlock.duration - (begin - startOffset))];
+
+            let result: Sound[] = [new Sound(startBlock.step, startBlock.duration - (begin - startOffset), isFollow, startBlock.continue)];
 
             while (pt != endBlock){
-                result.push(new Sound(pt.step, pt.duration));
+                result.push(new Sound(pt.step, pt.duration, pt.follow, pt.continue));
                 pt = pt.next;
             }
             let cutted = ((end - endOffset) != pt.duration);
 
-            result.push(new Sound(pt.step, end - endOffset, cutted));
+            result.push(new Sound(pt.step, end - endOffset, pt.follow, isContinue));
 
             return result;
         }

@@ -4,13 +4,15 @@ export class Sound{
     next: Sound;
     prev: Sound;
     continue: boolean;
+    follow: boolean;
 
-    constructor (step:number, duration:number, _continue: boolean = false){
+    constructor (step:number, duration:number, follow: boolean = false, _continue: boolean = false,){
         this.step = step;
         this.duration = duration;
 
         this.next = null;
         this.prev = null;
+        this.follow = follow;
         this.continue = _continue;
     }
     static link(sound1: Sound, sound2: Sound){

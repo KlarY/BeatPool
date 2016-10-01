@@ -11,9 +11,9 @@ describe("Note Test", ()=>{
         let sound = new Sound(C1, quarter);
         let note = new Note(sound);
 
-        expect(note.num).is.equal("1");
+        expect(note.display).is.equal("1");
 
         note = new Note(new Sound(D1, half));
-        expect(note.num).is.equal("2");
+        expect(note.display).is.equal("2");
     })
 });

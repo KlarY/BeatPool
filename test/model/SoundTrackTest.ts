@@ -124,7 +124,7 @@ describe("Sound Track Tests", ()=>{
             expect(_.map(sounds, sound=>sound.step)).is.eql([A0, B0, C1,D1, E1]);
         });
 
-        it("cuttted sound at end should have an continue sign", ()=>{
+        it("cut sound at end should have an continue sign", ()=>{
             let sounds = soundTrack.period(quarter+eighth, half+eighth);
 
             expect(sounds[1].continue).is.equal(true);
@@ -132,6 +132,14 @@ describe("Sound Track Tests", ()=>{
             sounds = soundTrack.period(0, half);
 
             expect(sounds[0].continue).is.equal(false);
+        });
+
+        it("cut sound at begin should have an follow", ()=>{
+            let sounds = soundTrack.period(quarter, full);
+
+            expect(_.map(sounds, "duration")).is.eql([quarter, quarter, quarter]);
+            expect(_.map(sounds, "follow")).is.eql([true, false, false]);
+            expect(_.map(sounds, "continue")).is.eql([false, false, false]);
         });
     })
 });
