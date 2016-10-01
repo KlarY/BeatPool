@@ -32,7 +32,7 @@ export class Note {
         }
     }
     private static convertDurationToType(duration:number):string{
-        let durationList = ["full","half", "quarter", "eighth"];
+        let durationList = ["full","half", "quarter", "eighth", "x32nd"];
 
         for(let durationName of durationList) {
             if (duration >= DurationPack[durationName]) {

@@ -5,7 +5,7 @@ import {Measure} from "../../src/model/Measure";
 import {DurationPack} from "../../src/model/Duration";
 import {Sound, SoundPack} from "../../src/model/Sound";
 import {SoundTrack} from "../../src/model/SoundTrack";
-let {eighth, quarter,half, full} = DurationPack;
+let {x32nd, eighth, quarter,half, full} = DurationPack;
 let {C1, D1} = SoundPack;
 
 describe("Logical Measure Tests", ()=>{
@@ -76,5 +76,21 @@ describe("Logical Measure Tests", ()=>{
 
             expect(_.map(measure.notes, 'display')).is.eql(['1.', '2']);
         });
+
+        it("should have a dot on eighth", ()=>{
+            let SoundList:[number, Sound][] = [
+                [0, new Sound(C1, eighth + x32nd)],
+                [eighth+x32nd, new Sound(D1, x32nd)],
+                [quarter, new Sound(C1, x32nd)],
+                [quarter+x32nd, new Sound(D1, eighth + x32nd)]
+            ];
+            let soundTrack = new SoundTrack(0, half);
+            soundTrack.batchInsert(SoundList);
+
+            let measure = new Measure(0, quarter, 2, soundTrack);
+            measure.update();
+
+            expect(_.map(measure.notes, 'display')).is.eql(['1.', '2', '1', '2.']);
+        })
     });
 });
