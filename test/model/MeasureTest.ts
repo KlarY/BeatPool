@@ -53,5 +53,12 @@ describe("Logical Measure Tests", ()=>{
             expect(measure.notes.length).is.equal(4);
             expect(_.map(measure.notes, 'display')).is.eql(['2', '-', '-', '-']);
         });
+
+        it("should not have hyphen on the beginning of measure", ()=>{
+            let measure = new Measure(full, quarter, 4, soundTrack);
+            measure.update();
+
+            expect(_.map(measure.notes, 'display')).is.eql(['2', '-', '1', '-']);
+        })
     });
 });
