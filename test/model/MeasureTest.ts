@@ -25,15 +25,33 @@ describe("Logical Measure Tests", ()=>{
         expect(measure.notes.length).is.equal(4);
     });
 
-    it("should generate Note \"-\" for half duration", ()=>{
-        let soundList:[number, Sound][] = [[0,new Sound(C1, half)]];
-        let soundTrack = new SoundTrack(0, half);
-        soundTrack.batchInsert(soundList);
+    describe("test hyphen for duration larger than quarter", ()=>{
+        let soundList:[number, Sound][];
+        let soundTrack: SoundTrack;
+        beforeEach("init SoundTrack", ()=>{
+            soundList= [
+                [0, new Sound(C1, half)],
+                [half, new Sound(D1, full)],
+                [half+full, new Sound(C1, half)]
+            ];
+            soundTrack = new SoundTrack(0, 2*full);
+            soundTrack.batchInsert(soundList);
+        });
 
-        let measure = new Measure(0, quarter, 2, soundTrack);
-        measure.update();
+        it("should generate Note \"-\" for half duration", ()=>{
+            let measure = new Measure(0, quarter, 2, soundTrack);
+            measure.update();
 
-        expect(measure.notes.length).is.equal(2);
-        expect(_.map(measure.notes, 'display')).is.eql(['1', '-']);
+            expect(measure.notes.length).is.equal(2);
+            expect(_.map(measure.notes, 'display')).is.eql(['1', '-']);
+        });
+
+        it("should generate three \"-\" for full duration", ()=>{
+            let measure = new Measure(half, quarter, 4, soundTrack);
+            measure.update();
+
+            expect(measure.notes.length).is.equal(4);
+            expect(_.map(measure.notes, 'display')).is.eql(['2', '-', '-', '-']);
+        });
     });
 });
