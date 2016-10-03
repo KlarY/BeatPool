@@ -1,0 +1,14 @@
+"use strict";
+var $ = require("jquery");
+var vm_page_1 = require("./vm_page");
+var vm_editor_1 = require("./vm_editor");
+var vmEditor = new vm_editor_1.vm_Editor(null, $('#editor'));
+var vmPage = new vm_page_1.vm_Page(vmEditor.elem, $('#page'));
+vmEditor.height = window.innerHeight - 20;
+vmEditor.width = window.innerWidth;
+vmEditor.baseline = 0;
+vmEditor.left = 0;
+vmPage.width = 500;
+vmPage.height = 700;
+vmPage.baseline = 0;
+vmPage.left = 20;
