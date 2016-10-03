@@ -20,7 +20,7 @@ export class vm_Base{
     private startPos: [number, number] = [0,0]; // left, bottom
     private startMousePos: [number, number] = [0,0]; // pageX, pageY
 
-    constructor(parent:any, element: any = null){
+    constructor(parent:vm_Base, element: any = null){
         this.parent = parent;
 
         if ( element != null ){
@@ -66,6 +66,9 @@ export class vm_Base{
             $this.startPos = [$this._left, $this._bottom];
             $(document).on('mousemove', this.onMouseMove(this));
             $(document).on('mouseup', this.onMouseUp(this));
+
+
+            console.log('parent:',$this.parent.width, $this.parent.height,',width:', $this.parent.height, $this.height);
             evt.stopPropagation();
         }
     }
@@ -78,12 +81,24 @@ export class vm_Base{
         }
     }
 
+    static inrange(val: number, left: number, right: number){
+        if (val < left){
+            return left;
+        }else if (val > right){
+            return right;
+        }else {
+            return val;
+        }
+    }
+
     onMouseMove($this: vm_Base){
         return (evt:any)=>{
-            console.log('move:', evt.pageX, evt.pageY);
 
-            $this.left = evt.pageX -($this.startMousePos[0] - $this.startPos[0]);
-            $this.baseline = $this.startMousePos[1] + $this.startPos[1] - evt.pageY;
+            let nLeft = evt.pageX -($this.startMousePos[0] - $this.startPos[0]);
+            let nBottom = $this.startMousePos[1] + $this.startPos[1] - evt.pageY;
+
+            $this.left = vm_Base.inrange(nLeft, 0, $this.parent.width - $this.width);
+            $this.baseline = vm_Base.inrange(nBottom, 0, $this.parent.height - $this.height);
 
             evt.stopPropagation();
         }
