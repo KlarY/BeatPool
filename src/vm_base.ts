@@ -1,4 +1,5 @@
 import * as $ from "jquery";
+import {ResizeDelegate} from "./resizeDelegate";
 
 let vm_counter = 0;
 
@@ -48,6 +49,12 @@ export class vm_Base{
     }
 
     disableDrag(){
+        this.elem.unbind('mousedown');
+    }
+
+    enableResize(){
+        console.log('enable resize');
+        ResizeDelegate.appendResizeGadgets(this);
     }
 
     // event Handler
@@ -107,6 +114,7 @@ export class vm_Base{
     // properties
 
     set select(_select:boolean){
+        if ( this._select == _select ) return;
         this._select = _select;
 
         if (_select == false){
@@ -114,6 +122,7 @@ export class vm_Base{
         }else {
             this.elem.addClass('selected');
             this.enableDrag();
+            this.enableResize();
         }
     }
 
@@ -129,7 +138,6 @@ export class vm_Base{
 
     set baseline(_baseline:number){
         this._bottom = _baseline;
-        console.log(this.name, 'bottom: ', this._bottom, 'height: ', this.height);
         this.elem.css('bottom', this._bottom);
     }
 
