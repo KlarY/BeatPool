@@ -8,5 +8,6 @@ export class vm_Editor extends vm_Base{
 
         console.log('initial with ', this.name);
         this.elem.addClass(this.name);
+        this.option({selectable:false});
     }
 }

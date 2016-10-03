@@ -1,5 +1,6 @@
 import * as $ from "jquery";
 import {ResizeDelegate} from "./resizeDelegate";
+import * as _ from "lodash";
 
 let vm_counter = 0;
 
@@ -15,6 +16,11 @@ export class vm_Base{
     private _left: number = 0;
 
     private _select: boolean = false;
+
+    //options
+    private selectable:boolean = false;
+    private resizeable:boolean = false;
+    private moveable:boolean = false;
 
     // movement
     private _onhold: boolean = false;
@@ -41,6 +47,11 @@ export class vm_Base{
         element.on('click', this.onClick(this));
     }
 
+    option(options: any){
+        if ( _.has(options, 'selectable') ) this.selectable = options['selectable'];
+        if ( _.has(options, 'resizeable') ) this.resizeable = options['resizeable'];
+        if ( _.has(options, 'moveable') ) this.moveable = options['moveable'];
+    }
 
     // view Functions
 
@@ -61,7 +72,9 @@ export class vm_Base{
 
     onClick($this: vm_Base){
         return (evt:any)=>{
-            $this.select = true;
+            if($this.selectable){
+                $this.select = true;
+            }
             console.log(`vm ${this.id}: onClick ${this.select}`);
             evt.stopPropagation();
         }
@@ -121,8 +134,8 @@ export class vm_Base{
             // this.elem.removeClass('selected');
         }else {
             this.elem.addClass('selected');
-            this.enableDrag();
-            this.enableResize();
+            if(this.moveable) this.enableDrag();
+            if(this.resizeable) this.enableResize();
         }
     }
 

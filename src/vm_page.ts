@@ -7,5 +7,9 @@ export class vm_Page extends vm_Base{
         super(parent, element);
         console.log('initial with ', this.name);
         this.elem.addClass(this.name);
+        this.option({
+            selectable:true,
+            moveable: true
+        });
     }
 }
