@@ -1,6 +1,7 @@
 import * as $ from "jquery";
 import {ResizeDelegate} from "./resizeDelegate";
 import * as _ from "lodash";
+import {SelectService} from "./sevices/selectService";
 
 let vm_counter = 0;
 
@@ -73,7 +74,8 @@ export class vm_Base{
     onClick($this: vm_Base){
         return (evt:any)=>{
             if($this.selectable){
-                $this.select = true;
+                // $this.select = true;
+                SelectService.select($this);
             }
             console.log(`vm ${this.id}: onClick ${this.select}`);
             evt.stopPropagation();
@@ -131,7 +133,9 @@ export class vm_Base{
         this._select = _select;
 
         if (_select == false){
-            // this.elem.removeClass('selected');
+            this.elem.removeClass('selected');
+            if(this.moveable) this.disableDrag();
+            if(this.resizeable) ResizeDelegate.removeResizeGadgets(this);
         }else {
             this.elem.addClass('selected');
             if(this.moveable) this.enableDrag();

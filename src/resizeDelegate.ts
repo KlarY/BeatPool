@@ -1,8 +1,13 @@
 import * as $ from "jquery";
-
+import {map} from "lodash";
 import {vm_Base} from "./vm_base";
 
 export class ResizeDelegate{
+    static removeResizeGadgets(vm:vm_Base){
+        let gadgets = vm.elem.find('.ne-resize');
+        map(gadgets, (gadget:any)=>gadget.remove());
+    }
+
     static appendResizeGadgets(vm:vm_Base){
         console.log('append gadgets');
         ResizeDelegate.appendResizeGadgetsOnDirection(vm,'bottom');
@@ -12,6 +17,7 @@ export class ResizeDelegate{
 
     static appendResizeGadgetsOnDirection(vm:vm_Base, direction:string){
         let gadget = $('<span></span>');
+        gadget.addClass('ne-resize');
         gadget.addClass(direction + '-resize-handle');
         vm.elem.append(gadget);
 
