@@ -9,6 +9,7 @@ export class vm_Base{
     id: string;
     elem: any = null;
     parent: any = null;
+    children: vm_Base[] = [];
     name:string = "";
 
     private _width: number = 0;
@@ -24,17 +25,27 @@ export class vm_Base{
     private moveable:boolean = false;
 
     // movement
-    private _onhold: boolean = false;
     private startPos: [number, number] = [0,0]; // left, bottom
     private startMousePos: [number, number] = [0,0]; // pageX, pageY
 
     constructor(parent:vm_Base, element: any = null){
         this.parent = parent;
+        this.children = [];
 
-        if ( element != null ){
-            this.bind(element);
-        }else {
+        if (this.parent != null){
+            this.parent.children.push(this);
         }
+
+        if ( element == null ){
+            element = $('<div></div>');
+            if (this.parent != null ){
+                this.parent.elem.append(element);
+            }else {
+                $("body").append(element);
+            }
+        }
+
+        this.bind(element);
     }
 
     bind(element:any){
