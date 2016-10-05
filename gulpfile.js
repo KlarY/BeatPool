@@ -3,6 +3,7 @@ var ts = require('gulp-typescript');
 var browserify = require("browserify");
 var source = require('vinyl-source-stream');
 var tsify = require("tsify");
+var sass = require('gulp-sass');
 
 var paths = {
   pages: ['src/*.html']
@@ -35,7 +36,14 @@ gulp.task('electron-workers', function(){
     .pipe(gulp.dest("app"));
 });
 
-gulp.task("default", ["copy-html", "copy-js-lib", "electron-workers"], function () {
+
+gulp.task('sass', function(){
+  return gulp.src('./sass/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./app/css'));
+});
+
+gulp.task("default", ["copy-html", "copy-js-lib", "electron-workers", "sass"], function () {
   return browserify({
     basedir: '.',
     debug: true,
@@ -50,4 +58,10 @@ gulp.task("default", ["copy-html", "copy-js-lib", "electron-workers"], function 
     .bundle()
     .pipe(source('app.js'))
     .pipe(gulp.dest("app/js"));
+});
+
+gulp.task("watch", ["default"], function(){
+  gulp.watch('./sass/**/*.scss', ['sass']);
+  gulp.watch('./src/**/*.ts', ['default']);
+  gulp.watch('./src/*.html', ['copy-html']);
 });
