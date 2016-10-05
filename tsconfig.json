@@ -1,6 +1,7 @@
 {
     "files": [
-        "src/mainWorker.ts"
+        "src/mainWorker.ts",
+        "src/app.ts"
     ],
     "compilerOptions":{
         "noImplicitAny":true,

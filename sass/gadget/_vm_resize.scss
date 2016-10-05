@@ -1,0 +1,70 @@
+$handle-color: green;
+$handle-size: 5px;
+$handle-active-size-factor: 3;
+$handle-active-color: lightgreen;
+
+.bottom-resize-handle{
+  position: absolute;
+  display: block;
+  background-color: $handle-color;
+
+  width: 100%;
+  height: $handle-size;
+
+  bottom: (- $handle-size);
+  cursor: ns-resize;
+
+  &.active,
+  &:hover{
+    bottom: -1 * $handle-active-size-factor * $handle-size;
+    height: $handle-active-size-factor * $handle-size;
+    background-color: $handle-active-color;
+  }
+}
+
+.right-resize-handle{
+  position: absolute;
+  display: block;
+  background-color: $handle-color;
+
+  height: 100%;
+  width: $handle-size;
+
+  right: (- $handle-size);
+  cursor: ew-resize;
+
+  &.active,
+  &:hover{
+    right: -1 * $handle-active-size-factor * $handle-size;
+    width: $handle-active-size-factor * $handle-size;
+    background-color: $handle-active-color;
+  }
+}
+.right-bottom-resize-handle{
+  position: absolute;
+  display: block;
+  background-color: $handle-color;
+
+  width: $handle-size;
+  height: $handle-size;
+
+  right: (- $handle-size);
+  bottom: (- $handle-size);
+  cursor: nwse-resize;
+
+  &.active,
+  &:hover{
+    bottom: -1 * $handle-active-size-factor * $handle-size;
+    right: -1 * $handle-active-size-factor * $handle-size;
+    height: $handle-active-size-factor * $handle-size;
+    width: $handle-active-size-factor * $handle-size;
+    background-color: $handle-active-color;
+  }
+}
+
+.increase-resize-handle{
+}
+.decrease-resize-handle{
+}
+
+

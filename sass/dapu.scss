@@ -1,3 +1,19 @@
+
+@import "utils/_init";
+
+@import "gadget/_vm_resize";
+
+@import "utils/_clearfix";
+
+@import "view-model/_vm_editor";
+
 body{
   background-color: darkslategrey;
+  height: 100%;
+  width: 100%;
+  padding-left: 5vw;
+  padding-right: 5vw;
+
+  overflow-y: scroll;
+
 }

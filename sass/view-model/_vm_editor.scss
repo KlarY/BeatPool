@@ -1,0 +1,16 @@
+@import "../utils/clearfix";
+
+.editor{
+  position: absolute;
+  display: block;
+
+  background-color: bisque;
+
+  height: 100vh;
+  width: 100vw;
+
+  &.selected{
+    background-color: peachpuff;
+  }
+
+}
