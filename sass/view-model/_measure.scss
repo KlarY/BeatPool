@@ -1,0 +1,20 @@
+.measure{
+  position: absolute;
+  display:block;
+
+  height: 50px;
+  width: 100px;
+
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+
+  background-color: gold;
+
+  border-right: black 2px solid;
+  border-left: black 1px solid;
+
+  &.selected{
+    background-color: bisque;
+  }
+}

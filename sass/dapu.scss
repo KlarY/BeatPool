@@ -5,7 +5,9 @@
 
 @import "utils/_clearfix";
 
-@import "view-model/_vm_editor";
+@import "view-model/editor";
+@import "view-model/measure";
+@import "view-model/note";
 
 body{
   background-color: darkslategrey;
@@ -15,5 +17,5 @@ body{
   padding-right: 5vw;
 
   overflow-y: scroll;
-
+  overflow-x: scroll;
 }
