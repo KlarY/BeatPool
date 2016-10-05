@@ -1,5 +1,8 @@
 var gulp = require("gulp");
 var ts = require('gulp-typescript');
+var browserify = require("browserify");
+var source = require('vinyl-source-stream');
+var tsify = require("tsify");
 
 var paths = {
   pages: ['src/*.html']
@@ -16,23 +19,35 @@ gulp.task("copy-js-lib", function() {
 });
 
 gulp.task('electron-workers', function(){
-  return gulp.src(['src/mainWorker.ts'])
-    .pipe(ts({
-      noImplicitAny: true,
-      out:'mainWorker.js',
-      target: "es5",
-      module: "amd"
-    }))
-    .pipe(gulp.dest('app'));
+  return browserify({
+    basedir: '.',
+    debug: true,
+    entries: ['src/mainWorker.ts'],
+    cache: {},
+    packageCache: {}
+  })
+    .plugin(tsify)
+    .once('error', function(err) {
+      console.log(err);
+    })
+    .bundle()
+    .pipe(source('mainWorker.js'))
+    .pipe(gulp.dest("app"));
 });
 
 gulp.task("default", ["copy-html", "copy-js-lib", "electron-workers"], function () {
-  return gulp.src(['src/*.ts', '!mainWroker.ts'])
-    .pipe(ts({
-      noImplicitAny: true,
-      outFile: 'app.js',
-      target: "es5",
-      module:'amd'
-    }))
-    .pipe(gulp.dest('app/js'));
+  return browserify({
+    basedir: '.',
+    debug: true,
+    entries: ['src/app.ts'],
+    cache: {},
+    packageCache: {}
+  })
+    .plugin(tsify)
+    .once('error', function(err) {
+      console.log(err);
+    })
+    .bundle()
+    .pipe(source('app.js'))
+    .pipe(gulp.dest("app/js"));
 });
