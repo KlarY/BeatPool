@@ -1,0 +1,34 @@
+{
+  "private": true,
+  "scripts": {
+    "postinstall": "install-app-deps",
+    "start": "npm install && npm run compile && ./node_modules/.bin/electron ./app",
+    "compile": "cp src/* app/",
+    "pack": "npm run compile && build --dir",
+    "dist": "npm run compile && build",
+    "release": "npm run compile && build"
+  },
+  "build": {
+    "appId": "org.dapudapu.dapu",
+    "category": "public.app-category.editor",
+    "dmg": {
+      "contents": [
+        {
+          "x": 200,
+          "y": 50,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 50,
+          "y": 50,
+          "type": "file"
+        }
+      ]
+    }
+  },
+  "devDependencies": {
+    "electron-builder": "next",
+    "electron": "1.4.1"
+  }
+}

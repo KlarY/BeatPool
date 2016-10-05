@@ -1,0 +1,13 @@
+{
+  "name": "mvp9",
+  "productName": "dapu打谱",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "这是样例打谱软件",
+  "author": "Tiancheng Song <carwestsam@gmail.com>",
+  "private": true,
+  "main": "./main.js",
+  "dependencies": {
+    "electron-debug": "^1.0.1"
+  }
+}
