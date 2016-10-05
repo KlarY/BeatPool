@@ -1,5 +1,9 @@
 .idea
 node_modules
-app
+app/
 !app/package.json
 dist
+src/**/*.js
+src/**/*.js.map
+!src/lib/*
+
