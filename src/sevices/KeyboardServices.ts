@@ -12,3 +12,5 @@ export class KeyboardServices{
         keyboardJS.setContext(context);
     }
 }
+
+export let keyboardService = new KeyboardServices();

@@ -11,6 +11,7 @@ import {vm_Note} from "../viewmodel/vm_note";
 import {KeyboardServices} from "./KeyboardServices";
 import {SelectService} from "./selectService";
 import {Sound, SoundPack} from "../model/Sound";
+import {menuService} from "./MenuService";
 
 let soundTrack = new SoundTrack(0, DurationPack.full * 4);
 
@@ -50,7 +51,7 @@ export class ScoreService{
                 let selected = SelectService.getSelected();
                 if ( selected instanceof vm_Note || selected instanceof vm_Measure){
                     let vm = <vm_Base>selected;
-                    soundTrack.insert(vm.notation.startTime, new Sound(step, DurationPack.x32nd));
+                    soundTrack.insert(vm.notation.startTime, new Sound(step, menuService.duration));
                     part.update();
 
                     // console.log(_.map(part.measures, measure=>_.map(measure.notes, 'type')));
