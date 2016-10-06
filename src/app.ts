@@ -10,7 +10,7 @@ import {MenuService, menuService} from "./sevices/MenuService";
 
 var vmEditor = new vm_Editor(null, $('#editor'));
 
-vmEditor.height = 800;
+vmEditor.height = 1200;
 vmEditor.width = 1080;
 vmEditor.baseline = 0;
 vmEditor.left = 0;

@@ -43,7 +43,7 @@ export class vm_Base{
             if (this.parent != null ){
                 this.parent.elem.append(element);
             }else {
-                $("body").append(element);
+                // $("body").append(element);
             }
         }
 
@@ -66,6 +66,29 @@ export class vm_Base{
             this.notation = notation;
             notation.bindVM(this);
         }
+    }
+
+    attach(parentVM: vm_Base){
+        if (this.parent != null){
+            this.parent.detachChild(this);
+        }
+        if (this.elem.parent().length == 0){
+            this.elem.detach();
+        }
+        parentVM.addChild(this);
+        if (parentVM.elem != null && this.elem!=null){
+            this.elem.appendTo(parentVM.elem);
+        }else if (parentVM.elem == null){
+            throw `vm_Base::attach() parent element don't have jquery element`
+        }
+    }
+
+    detachChild(child:vm_Base){
+        _.pull(this.children, child);
+    }
+
+    addChild(child:vm_Base){
+        this.children.push(child);
     }
 
     remove() {

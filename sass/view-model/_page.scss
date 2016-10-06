@@ -1,0 +1,9 @@
+.page{
+  position: absolute;
+  background-color: white;
+
+  &.selected{
+    outline: cyan dotted;
+    cursor: move;
+  }
+}

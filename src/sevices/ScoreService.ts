@@ -12,15 +12,16 @@ import {KeyboardServices} from "./KeyboardServices";
 import {SelectService} from "./selectService";
 import {Sound, SoundPack} from "../model/Sound";
 import {menuService} from "./MenuService";
+import {vm_Page} from "../viewmodel/vm_page";
 
-let soundTrack = new SoundTrack(0, DurationPack.full * 4);
+let soundTrack = new SoundTrack(0, DurationPack.full * 8);
 
 soundTrack.insertSounds([
     new Sound(SoundPack.C1, DurationPack.eighth),
     new Sound(SoundPack.D1, DurationPack.x32nd)
 ]);
 
-let part = new Part(0, DurationPack.full*4, soundTrack);
+let part = new Part(0, DurationPack.full*8, soundTrack);
 part.init(DurationPack.quarter, 4);
 
 export let Score = part;
@@ -28,17 +29,21 @@ export let Score = part;
 export class ScoreService{
     editor: vm_Editor;
     linePart: vm_LinePart;
+    page: vm_Page;
+
     init(){
         console.log(part.measures.length);
 
-        let vmLinePart = new vm_LinePart(this.editor);
-        vmLinePart.height = 150;
-        vmLinePart.width = 1000;
-        vmLinePart.left = 50;
-        vmLinePart.baseline = 500;
-        this.linePart = vmLinePart;
+        this.page = new vm_Page(this.editor);
 
-        this.update(vmLinePart);
+        this.page.width = 794;
+        this.page.height = 1123;
+        this.page.baseline = 20;
+        this.page.left = 20;
+
+        this.linePart = new vm_LinePart(this.page);
+
+        this.update();
 
         this.rigisterKeyboardEvents();
     }
@@ -56,7 +61,7 @@ export class ScoreService{
 
                     // console.log(_.map(part.measures, measure=>_.map(measure.notes, 'type')));
 
-                    $this.update($this.linePart);
+                    $this.update();
                     SelectService.selectNextNote(part, vm.notation.startTime);
                 }
             }
@@ -72,13 +77,19 @@ export class ScoreService{
         KeyboardServices.rigister('editor', 's', insertSound(SoundPack.STOP));
     }
 
-    update(vmLinePart: vm_LinePart){
-        _.map(vmLinePart.children, (vmMeasure)=>{vmMeasure.remove();});
-        vmLinePart.children = [];
-        _.times(part.measures.length, ()=>vmLinePart.insertMeasure());
+    update(){
+
+        this.linePart.height = 150;
+        this.linePart.width = 1000;
+        this.linePart.left = 50;
+        this.linePart.baseline = 500;
+
+        _.map(this.linePart.children, (vmMeasure)=>{vmMeasure.remove();});
+        this.linePart.children = [];
+        _.times(part.measures.length, ()=>this.linePart.insertMeasure());
 
         for (let idx = 0; idx < part.measures.length; idx +=1 ){
-            let vmMeasure:vm_Measure = <vm_Measure>vmLinePart.children[idx];
+            let vmMeasure:vm_Measure = <vm_Measure>this.linePart.children[idx];
             let measure = part.measures[idx];
 
             measure.bindVM(vmMeasure);
@@ -88,6 +99,6 @@ export class ScoreService{
             }
         }
 
-        vmLinePart.refresh();
+        this.linePart.refresh();
     }
 }
