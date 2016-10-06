@@ -18,6 +18,9 @@
   &.selected{
     background-color: lightcyan;
     color: #0b97c4;
+    &.bearer:after{
+      border-bottom: solid 2px #0b97c4;
+    }
   }
 
   &.bearer{

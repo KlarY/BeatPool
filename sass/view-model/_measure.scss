@@ -11,10 +11,13 @@
 
   background-color: gold;
 
-  border-right: black 2px solid;
-  border-left: black 1px solid;
+  border-left: black 2px solid;
 
   &.selected{
     background-color: bisque;
+  }
+
+  &:last-of-type{
+    border-right: black 2px solid;
   }
 }
