@@ -12,7 +12,16 @@ export class MenuService{
 
         this.menuElem = $('#menu');
 
+        this.resizeDisplayArea();
         this.initDuration();
+    }
+    private resizeDisplayArea(){
+        $('#editor-zone').height(window.innerHeight - 200);
+        $('#editor-zone').width(window.innerWidth);
+        $(window).resize(()=>{
+            $('#editor-zone').height(window.innerHeight - 200);
+            $('#editor-zone').width(window.innerWidth);
+        });
     }
 
     private initDuration(){

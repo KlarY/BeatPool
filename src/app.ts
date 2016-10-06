@@ -15,15 +15,6 @@ vmEditor.width = 1080;
 vmEditor.baseline = 0;
 vmEditor.left = 0;
 
-
-$('#editor-zone').height(window.innerHeight - 200);
-$('#editor-zone').width(window.innerWidth);
-$(window).resize(()=>{
-    $('#editor-zone').height(window.innerHeight - 200);
-    $('#editor-zone').width(window.innerWidth);
-});
-
-
 var scoreService = new ScoreService();
 scoreService.editor = vmEditor;
 
