@@ -21,6 +21,9 @@
     &.bearer:after{
       border-bottom: solid 2px #0b97c4;
     }
+    &.double-bearer:after{
+      border-bottom: double 5px #0b97c4;
+    }
   }
 
   &.bearer{
