@@ -8,6 +8,7 @@ import {vm_LinePart} from "../viewmodel/vm_linepart";
 import {Measure} from "../model/Measure";
 import {vm_Base} from "../viewmodel/vm_base";
 import {vm_Note} from "../viewmodel/vm_note";
+import {KeyboardServices} from "./KeyboardServices";
 
 let soundTrack = new SoundTrack(0, DurationPack.full * 4);
 
@@ -43,5 +44,9 @@ export class ScoreService{
                 vmNote.content = note.display;
             }
         }
+
+        KeyboardServices.rigister('editor', 'c', ()=>{
+            console.log('add note C');
+        })
     }
 }
