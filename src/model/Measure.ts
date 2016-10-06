@@ -4,10 +4,10 @@ import {Sound} from "./Sound";
 import {Note} from "./Note";
 import {SoundTrack} from "./SoundTrack";
 import {DurationPack} from "./Duration";
+import {BaseNotation} from "./BaseNotation";
 let {quarter, half} = DurationPack;
 
-export class Measure{
-    startTime:number;
+export class Measure extends BaseNotation{
     endTime:number;
     beatDuration: number;
     beatTimes: number;
@@ -15,7 +15,7 @@ export class Measure{
     soundTrack: SoundTrack;
 
     constructor(startTime:number, beatDuration:number, beatTimes:number, soundTrack:SoundTrack = null ){
-        this.startTime = startTime;
+        super(beatDuration * beatTimes, startTime);
         this.endTime = startTime + beatDuration * beatTimes;
         this.beatDuration = beatDuration;
         this.beatTimes = beatTimes;
@@ -67,14 +67,16 @@ export class Measure{
             let isHyphen:boolean = false;
             if ( beats != 0 && sounds.length == 1
                 && _.last(this.notes).step == _.first(sounds).step
-                && _.last(this.notes).duration == this.beatDuration){
-
+                && _.last(this.notes).duration == this.beatDuration
+                && sounds[0].follow == true
+            ){
                 isHyphen = true;
             }
 
-            _.map(sounds, sound=>{
-                this.notes.push(new Note(sound, isHyphen));
-            });
+            _.reduce(sounds, (timeOffset, sound)=>{
+                this.notes.push(new Note(sound, timeOffset + beatStart, isHyphen));
+                return timeOffset + sound.duration;
+            }, 0);
         }
     }
 }

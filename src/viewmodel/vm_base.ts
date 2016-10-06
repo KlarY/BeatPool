@@ -2,6 +2,7 @@ import * as $ from "jquery";
 import {ResizeDelegate} from "./delegate/resizeDelegate";
 import * as _ from "lodash";
 import {SelectService} from "../sevices/selectService";
+import {BaseNotation} from "../model/BaseNotation";
 
 let vm_counter = 0;
 
@@ -11,6 +12,7 @@ export class vm_Base{
     parent: any = null;
     children: vm_Base[] = [];
     name:string = "";
+    notation:BaseNotation;
 
     private _width: number = 0;
     private _height: number = 0;
@@ -57,6 +59,17 @@ export class vm_Base{
         this.elem = $('#' + this.id);
 
         element.on('click', this.onClick(this));
+    }
+
+    bindNotation(notation:BaseNotation){
+        this.notation = notation;
+    }
+
+    remove() {
+        if (this.elem!=null){
+            _.map(this.children, child=>child.remove());
+            this.elem.remove();
+        }
     }
 
     option(options: any){

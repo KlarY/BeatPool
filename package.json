@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "pretest": "./node_modules/typescript/bin/tsc test/**/*Test.ts --module commonjs --moduleResolution node",
+    "pretest": "./node_modules/typescript/bin/tsc test/**/*Test.ts --module commonjs --moduleResolution node -t ES2015",
     "test": "mocha --recursive",
     "postinstall": "install-app-deps",
     "start": "npm install && npm run compile && ./node_modules/.bin/electron ./app",

@@ -78,6 +78,16 @@ describe("Sound Track Tests", ()=>{
             expect(_.map(sounds, sound=>sound.step)).is.eql([STOP, A0, C1, B0, STOP]);
         });
 
+        it("should not merge to one Note", ()=>{
+            soundTrack.insert(0, new Sound(C1, quarter));
+            soundTrack.insert(half, new Sound(C1, quarter));
+            soundTrack.insert(quarter, new Sound(C1, quarter));
+
+            let sounds = soundTrack.sounds();
+
+            expect(_.map(sounds, sound=>sound.step)).is.eql([C1, C1, C1, STOP]);
+        });
+
         it("should insert Notes in batch", ()=>{
             soundTrack.batchInsert([[0, new Sound(A0, quarter)],
                                 [quarter, new Sound(Bb0, quarter)],

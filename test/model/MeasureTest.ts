@@ -32,9 +32,11 @@ describe("Logical Measure Tests", ()=>{
             soundList= [
                 [0, new Sound(C1, half)],
                 [half, new Sound(D1, full)],
-                [half+full, new Sound(C1, half)]
+                [half+full, new Sound(C1, half)],
+                [full*2, new Sound(C1, quarter)],
+                [full*2 + quarter, new Sound(C1, quarter)]
             ];
-            soundTrack = new SoundTrack(0, 2*full);
+            soundTrack = new SoundTrack(0, 3*full);
             soundTrack.batchInsert(soundList);
         });
 
@@ -59,7 +61,14 @@ describe("Logical Measure Tests", ()=>{
             measure.update();
 
             expect(_.map(measure.notes, 'display')).is.eql(['2', '-', '1', '-']);
-        })
+        });
+
+        it("should not merge to one note", ()=>{
+            let measure = new Measure(full + half, quarter, 4, soundTrack);
+            measure.update();
+
+            expect(_.map(measure.notes, 'display')).is.eql(['1', '-', '1', '1']);
+        });
     });
 
     describe("test dot inside measure", ()=>{

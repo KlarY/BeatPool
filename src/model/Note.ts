@@ -1,17 +1,17 @@
 import {Sound,SoundPack} from "./Sound";
 import {DurationPack} from "./Duration";
+import {BaseNotation} from "./BaseNotation";
 
-export class Note {
+export class Note extends BaseNotation{
     display: string;
-    duration: number;
     step: number;
     type: string;
 
-    constructor(sound:Sound, isHyphen:boolean = false){
+    constructor(sound:Sound, startTime:number = 0, isHyphen:boolean = false){
+        super(sound.duration, startTime);
         this.display = (Note.convertStepToNumber(sound.step)).toString();
         this.type = (Note.convertDurationToType(sound.duration)).toString();
 
-        this.duration = sound.duration;
         this.step = sound.step;
         if (isHyphen){
             this.display = "-";

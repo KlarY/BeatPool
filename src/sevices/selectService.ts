@@ -15,4 +15,7 @@ export class SelectService{
         }
         selected = vm;
     }
+    static getSelected(){
+        return selected;
+    }
 }

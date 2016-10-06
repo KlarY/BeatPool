@@ -9,6 +9,8 @@ import {Measure} from "../model/Measure";
 import {vm_Base} from "../viewmodel/vm_base";
 import {vm_Note} from "../viewmodel/vm_note";
 import {KeyboardServices} from "./KeyboardServices";
+import {SelectService} from "./selectService";
+import {Sound, SoundPack} from "../model/Sound";
 
 let soundTrack = new SoundTrack(0, DurationPack.full * 4);
 
@@ -19,6 +21,7 @@ export let score = part;
 
 export class ScoreService{
     editor: vm_Editor;
+    linePart: vm_LinePart;
     init(){
         console.log(part.measures.length);
 
@@ -27,13 +30,32 @@ export class ScoreService{
         vmLinePart.width = 1000;
         vmLinePart.left = 50;
         vmLinePart.baseline = 500;
+        this.linePart = vmLinePart;
 
+        this.update(vmLinePart);
 
+        KeyboardServices.rigister('editor', 'c', ()=>{
+            console.log('add note C');
+            let selected = SelectService.getSelected();
+            if ( selected instanceof vm_Note){
+                let vmNote = <vm_Note>selected;
+                soundTrack.insert(vmNote.notation.startTime, new Sound(SoundPack.C4, DurationPack.quarter));
+                part.update();
+                this.update(this.linePart);
+            }
+        })
+    }
+
+    update(vmLinePart: vm_LinePart){
+        _.map(vmLinePart.children, (vmMeasure)=>{vmMeasure.remove();});
+        vmLinePart.children = [];
         _.times(part.measures.length, ()=>vmLinePart.insertMeasure());
 
         for (let idx = 0; idx < part.measures.length; idx +=1 ){
             let vmMeasure:vm_Measure = <vm_Measure>vmLinePart.children[idx];
             let measure = part.measures[idx];
+
+            measure.bindVM(vmMeasure);
 
             _.times(measure.notes.length, ()=>vmMeasure.insertNote());
 
@@ -41,12 +63,10 @@ export class ScoreService{
                 let vmNote:vm_Note = <vm_Note> vmMeasure.children[jdx];
                 let note = measure.notes[jdx];
 
+                note.bindVM(vmNote);
+
                 vmNote.content = note.display;
             }
         }
-
-        KeyboardServices.rigister('editor', 'c', ()=>{
-            console.log('add note C');
-        })
     }
 }
