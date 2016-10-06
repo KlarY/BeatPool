@@ -102,4 +102,26 @@ describe("Logical Measure Tests", ()=>{
             expect(_.map(measure.notes, 'display')).is.eql(['1.', '2', '1', '2.']);
         })
     });
+
+    describe("test special cases for duration", ()=>{
+        it("should change to quarter dot when add eighth", ()=>{
+            let soundTrack = new SoundTrack(0, full);
+            soundTrack.insertSounds([
+                new Sound(C1, quarter),
+                new Sound(D1, quarter),
+                new Sound(D1, half)
+            ]);
+            let measure = new Measure(0, quarter, 4, soundTrack);
+            measure.update();
+
+            expect(_.map(measure.notes, 'display')).is.eql(['1', '2', '2', '-']);
+            expect(_.map(measure.notes, 'type')).is.eql(['quarter', 'quarter', 'quarter', 'quarter']);
+
+            soundTrack.insert(half, new Sound(C1, eighth));
+            measure.update();
+
+            expect(_.map(measure.notes, 'display')).is.eql(['1', '2', '1', '2.']);
+            expect(_.map(measure.notes, 'type')).is.eql(['quarter', 'quarter', 'eighth', 'quarter']);
+        })
+    });
 });

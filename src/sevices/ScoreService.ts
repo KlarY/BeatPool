@@ -14,6 +14,10 @@ import {Sound, SoundPack} from "../model/Sound";
 
 let soundTrack = new SoundTrack(0, DurationPack.full * 4);
 
+soundTrack.insertSounds([
+    new Sound(SoundPack.C1, DurationPack.eighth)
+]);
+
 let part = new Part(0, DurationPack.full*4, soundTrack);
 part.init(DurationPack.quarter, 4);
 
@@ -45,8 +49,11 @@ export class ScoreService{
                 let selected = SelectService.getSelected();
                 if ( selected instanceof vm_Note || selected instanceof vm_Measure){
                     let vm = <vm_Base>selected;
-                    soundTrack.insert(vm.notation.startTime, new Sound(step, DurationPack.quarter));
+                    soundTrack.insert(vm.notation.startTime, new Sound(step, DurationPack.eighth));
                     part.update();
+
+                    console.log(_.map(part.measures, measure=>_.map(measure.notes, 'type')));
+
                     $this.update($this.linePart);
                     SelectService.selectNextNote(part, vm.notation.startTime);
                 }
@@ -73,15 +80,8 @@ export class ScoreService{
 
             measure.bindVM(vmMeasure);
 
-            _.times(measure.notes.length, ()=>vmMeasure.insertNote());
-
             for (let jdx = 0; jdx < measure.notes.length; jdx += 1){
-                let vmNote:vm_Note = <vm_Note> vmMeasure.children[jdx];
-                let note = measure.notes[jdx];
-
-                note.bindVM(vmNote);
-
-                vmNote.content = note.display;
+                vmMeasure.insertNote(measure.notes[jdx]);
             }
         }
     }

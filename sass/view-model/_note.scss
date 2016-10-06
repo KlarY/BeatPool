@@ -19,4 +19,14 @@
     background-color: lightcyan;
     color: #0b97c4;
   }
+
+  &.bearer{
+    &:after{
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      border-bottom: solid 2px black;
+    }
+  }
 }

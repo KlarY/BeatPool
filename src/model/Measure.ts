@@ -37,7 +37,7 @@ export class Measure extends BaseNotation{
         _.map(beatBeginTimes, ([_start, _dur])=>{
             if (_dur > quarter && _dur < half){
                 let leftBeat = ~~(_start/this.beatDuration);
-                let rightBeat = ~~((_start+_dur)/this.beatDuration);
+                let rightBeat = ~~((_start+_dur-0.5)/this.beatDuration);
                 for(let i =leftBeat; i<=rightBeat; i+=1){
                     togetherBuffer[i] = true;
                 }

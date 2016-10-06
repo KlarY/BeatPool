@@ -1,4 +1,5 @@
 import {vm_Base} from "./vm_base";
+import {Note} from "../model/Note";
 export class vm_Note extends vm_Base{
     name:string = 'note';
     _content:string = '0';
@@ -19,5 +20,21 @@ export class vm_Note extends vm_Base{
     }
     get content(){
         return this._content;
+    }
+
+    bindNotation(note:Note){
+        super.bindNotation(note);
+        this.content = note.display;
+        switch (note.type){
+            case 'quarter':
+                this.width = 30;
+                break;
+            case 'eighth':
+                this.elem.addClass('bearer');
+                this.width = 15;
+                break;
+            default:
+                throw `vm_Note::bindNotation : unhandled type ${note.type}`;
+        }
     }
 }

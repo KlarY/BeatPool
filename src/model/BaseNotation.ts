@@ -11,8 +11,10 @@ export class BaseNotation{
     }
 
     bindVM(vm:vm_Base){
-        this.vm = vm;
-        vm.bindNotation(this);
+        if ( this.vm !== vm ){
+            this.vm = vm;
+            vm.bindNotation(this);
+        }
     }
 
     remove(){
