@@ -34,16 +34,31 @@ export class ScoreService{
 
         this.update(vmLinePart);
 
-        KeyboardServices.rigister('editor', 'c', ()=>{
-            console.log('add note C');
-            let selected = SelectService.getSelected();
-            if ( selected instanceof vm_Note){
-                let vmNote = <vm_Note>selected;
-                soundTrack.insert(vmNote.notation.startTime, new Sound(SoundPack.C4, DurationPack.quarter));
-                part.update();
-                this.update(this.linePart);
+        this.rigisterKeyboardEvents();
+    }
+
+    rigisterKeyboardEvents(){
+
+        let $this = this;
+        let insertSound = function(step:number){
+            return ()=>{
+                let selected = SelectService.getSelected();
+                if ( selected instanceof vm_Note){
+                    let vmNote = <vm_Note>selected;
+                    soundTrack.insert(vmNote.notation.startTime, new Sound(step, DurationPack.quarter));
+                    part.update();
+                    $this.update($this.linePart);
+                }
             }
-        })
+        };
+
+        KeyboardServices.rigister('editor', 'c', insertSound(SoundPack.C4));
+        KeyboardServices.rigister('editor', 'd', insertSound(SoundPack.D4));
+        KeyboardServices.rigister('editor', 'e', insertSound(SoundPack.E4));
+        KeyboardServices.rigister('editor', 'f', insertSound(SoundPack.F4));
+        KeyboardServices.rigister('editor', 'g', insertSound(SoundPack.G4));
+        KeyboardServices.rigister('editor', 'a', insertSound(SoundPack.A4));
+        KeyboardServices.rigister('editor', 'b', insertSound(SoundPack.B4));
     }
 
     update(vmLinePart: vm_LinePart){
