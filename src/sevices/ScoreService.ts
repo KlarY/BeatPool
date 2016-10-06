@@ -67,6 +67,7 @@ export class ScoreService{
         KeyboardServices.rigister('editor', 'g', insertSound(SoundPack.G4));
         KeyboardServices.rigister('editor', 'a', insertSound(SoundPack.A4));
         KeyboardServices.rigister('editor', 'b', insertSound(SoundPack.B4));
+        KeyboardServices.rigister('editor', 's', insertSound(SoundPack.STOP));
     }
 
     update(vmLinePart: vm_LinePart){
