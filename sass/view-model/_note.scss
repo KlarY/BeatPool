@@ -32,4 +32,12 @@
       border-bottom: solid 2px black;
     }
   }
+
+  &.double-bearer:after{
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    border-bottom: double 5px black;
+  }
 }

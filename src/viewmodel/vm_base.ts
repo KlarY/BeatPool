@@ -83,6 +83,9 @@ export class vm_Base{
 
     // view Functions
 
+    adjust(){}  // bottom to up
+    refresh(){} // up to bottom
+
     enableDrag(){
         this.elem.on('mousedown', this.onMouseDown(this));
     }

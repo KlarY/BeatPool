@@ -25,13 +25,13 @@ export class SelectService{
 
     static selectNextNote(part: Part, startTime: number) {
         let notes = _.flatten( _.map(part.measures, measure=>_.map(measure.notes)));
-        console.log('selectNextNote: ',startTime, _.map(notes, 'startTime'));
+        // console.log('selectNextNote: ',startTime, _.map(notes, 'startTime'));
         for ( let idx=notes.length-1; idx>0; idx-= 1){
             let prenote = <Note> notes[idx-1];
             let note = <Note> notes[idx];
             if( prenote.startTime <= startTime ){
                 SelectService.select(note.vm);
-                console.log('selected', note.startTime);
+                console.log('selected', note);
                 break;
             }
         }

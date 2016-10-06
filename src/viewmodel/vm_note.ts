@@ -1,5 +1,6 @@
 import {vm_Base} from "./vm_base";
 import {Note} from "../model/Note";
+import {DurationPack} from "../model/Duration";
 export class vm_Note extends vm_Base{
     name:string = 'note';
     _content:string = '0';
@@ -26,12 +27,16 @@ export class vm_Note extends vm_Base{
         super.bindNotation(note);
         this.content = note.display;
         switch (note.type){
-            case 'quarter':
+            case "quarter":
                 this.width = 30;
                 break;
-            case 'eighth':
+            case "eighth":
                 this.elem.addClass('bearer');
                 this.width = 15;
+                break;
+            case "x32nd":
+                this.elem.addClass('double-bearer');
+                this.width = 10;
                 break;
             default:
                 throw `vm_Note::bindNotation : unhandled type ${note.type}`;

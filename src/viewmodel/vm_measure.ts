@@ -3,6 +3,7 @@ import * as _ from "lodash";
 import {vm_Base} from "./vm_base";
 import {vm_Note} from "./vm_note";
 import {Note} from "../model/Note";
+import {Measure} from "../model/Measure";
 
 export class vm_Measure extends vm_Base{
     name:string = "measure";
@@ -29,5 +30,12 @@ export class vm_Measure extends vm_Base{
 
         this.width = _.sum(_.map(this.children, 'width')) + 20;
         vmNote.left = this.width - 10 - vmNote.width;
+    }
+    bindNotation(notation: Measure){
+        super.bindNotation(notation);
+    }
+
+    refresh(){
+        this.width = _.sum(_.map(this.children, 'width')) + 20;
     }
 }
