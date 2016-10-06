@@ -1,4 +1,8 @@
+import * as _ from "lodash";
+
 import {vm_Base} from "../viewmodel/vm_base";
+import {Part} from "../model/Part";
+import {Note} from "../model/Note";
 let selected:any = null;
 
 export class SelectService{
@@ -17,5 +21,17 @@ export class SelectService{
     }
     static getSelected(){
         return selected;
+    }
+
+    static selectNextNote(part: Part, startTime: number) {
+        let notes = _.flatten( _.map(part.measures, measure=>_.map(measure.notes)));
+        for ( let idx=notes.length-1; idx>0; idx-= 1){
+            let prenote = <Note> notes[idx-1];
+            let note = <Note> notes[idx];
+            if( prenote.startTime <= startTime ){
+                SelectService.select(note.vm);
+                break;
+            }
+        }
     }
 }

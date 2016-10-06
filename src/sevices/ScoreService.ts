@@ -48,6 +48,7 @@ export class ScoreService{
                     soundTrack.insert(vmNote.notation.startTime, new Sound(step, DurationPack.quarter));
                     part.update();
                     $this.update($this.linePart);
+                    SelectService.selectNextNote(part, vmNote.notation.startTime);
                 }
             }
         };
