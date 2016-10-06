@@ -43,12 +43,12 @@ export class ScoreService{
         let insertSound = function(step:number){
             return ()=>{
                 let selected = SelectService.getSelected();
-                if ( selected instanceof vm_Note){
-                    let vmNote = <vm_Note>selected;
-                    soundTrack.insert(vmNote.notation.startTime, new Sound(step, DurationPack.quarter));
+                if ( selected instanceof vm_Note || selected instanceof vm_Measure){
+                    let vm = <vm_Base>selected;
+                    soundTrack.insert(vm.notation.startTime, new Sound(step, DurationPack.quarter));
                     part.update();
                     $this.update($this.linePart);
-                    SelectService.selectNextNote(part, vmNote.notation.startTime);
+                    SelectService.selectNextNote(part, vm.notation.startTime);
                 }
             }
         };
