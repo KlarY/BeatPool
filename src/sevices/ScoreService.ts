@@ -22,7 +22,7 @@ soundTrack.insertSounds([
 let part = new Part(0, DurationPack.full*4, soundTrack);
 part.init(DurationPack.quarter, 4);
 
-export let score = part;
+export let Score = part;
 
 export class ScoreService{
     editor: vm_Editor;

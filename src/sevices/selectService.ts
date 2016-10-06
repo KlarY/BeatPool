@@ -36,4 +36,18 @@ export class SelectService{
             }
         }
     }
+
+    static selectPrevNote(part: Part, startTime: number) {
+        let notes = _.flatten( _.map(part.measures, measure=>_.map(measure.notes)));
+        // console.log('selectNextNote: ',startTime, _.map(notes, 'startTime'));
+        for ( let idx=0; idx < notes.length-1; idx+= 1){
+            let nextNote = <Note> notes[idx+1];
+            let note = <Note> notes[idx];
+            if( nextNote.startTime >= startTime ){
+                SelectService.select(note.vm);
+                console.log('selected', note);
+                break;
+            }
+        }
+    }
 }

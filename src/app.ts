@@ -5,6 +5,7 @@ import {vm_Editor} from "./viewmodel/vm_editor";
 import {vm_Measure} from "./viewmodel/vm_measure";
 import {ScoreService} from "./sevices/ScoreService";
 import {KeyboardServices} from "./sevices/KeyboardServices";
+import {SelectMovementService} from "./sevices/SelectMovementService";
 
 var vmEditor = new vm_Editor(null, $('#editor'));
 
@@ -19,3 +20,5 @@ scoreService.editor = vmEditor;
 scoreService.init();
 
 let keyboardServices = new KeyboardServices();
+
+let selectMovementService = new SelectMovementService();
