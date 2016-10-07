@@ -20,19 +20,7 @@ gulp.task("copy-js-lib", function() {
 });
 
 gulp.task('electron-workers', function(){
-  return browserify({
-    basedir: '.',
-    debug: true,
-    entries: ['src/mainWorker.ts'],
-    cache: {},
-    packageCache: {}
-  })
-    .plugin(tsify)
-    .once('error', function(err) {
-      console.log(err);
-    })
-    .bundle()
-    .pipe(source('mainWorker.js'))
+  return gulp.src("src/mainWorker.js")
     .pipe(gulp.dest("app"));
 });
 

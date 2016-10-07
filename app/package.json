@@ -6,7 +6,7 @@
   "description": "这是样例打谱软件",
   "author": "Tiancheng Song <carwestsam@gmail.com>",
   "private": true,
-  "main": "./main.js",
+  "main": "./mainWorker.js",
   "dependencies": {
     "electron-debug": "^1.0.1"
   }

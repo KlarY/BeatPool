@@ -16,10 +16,10 @@ export class MenuService{
         this.initDuration();
     }
     private resizeDisplayArea(){
-        $('#editor-zone').height(window.innerHeight - 200);
+        $('#editor-zone').height(window.innerHeight - 100);
         $('#editor-zone').width(window.innerWidth);
         $(window).resize(()=>{
-            $('#editor-zone').height(window.innerHeight - 200);
+            $('#editor-zone').height(window.innerHeight - 100);
             $('#editor-zone').width(window.innerWidth);
         });
     }

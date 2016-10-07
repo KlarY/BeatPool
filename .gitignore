@@ -4,6 +4,7 @@ app/
 !app/package.json
 dist
 src/**/*.js
+!src/mainWorker.js
 src/**/*.js.map
 !src/lib/*
 test/**/*.js
