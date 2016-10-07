@@ -79,25 +79,32 @@ export class ScoreService{
 
     update(){
 
+        this.linePart = <vm_LinePart>this.page.children[0];
+
         this.linePart.height = 150;
         this.linePart.width = 1000;
         this.linePart.left = 50;
         this.linePart.baseline = 500;
 
-        _.map(this.linePart.children, (vmMeasure)=>{vmMeasure.remove();});
-        this.linePart.children = [];
-        _.times(part.measures.length, ()=>this.linePart.insertMeasure());
+        let _oldVmMeasures = _.map(this.linePart.children, vm=>vm);
+        _.map(_oldVmMeasures, vm=>vm.remove());
 
-        for (let idx = 0; idx < part.measures.length; idx +=1 ){
-            let vmMeasure:vm_Measure = <vm_Measure>this.linePart.children[idx];
-            let measure = part.measures[idx];
 
-            measure.bindVM(vmMeasure);
+        let vmMeasures = _.map(part.measures, measure=>{
+            let vmMeasure = new vm_Measure();
+            vmMeasure.bindNotation(measure);
+            vmMeasure.baseline = 20;
+            _.map(measure.notes, note=>{
+                vmMeasure.insertNote(note);
+            });
+            return vmMeasure;
+        });
 
-            for (let jdx = 0; jdx < measure.notes.length; jdx += 1){
-                vmMeasure.insertNote(measure.notes[jdx]);
-            }
-        }
+        console.log(vmMeasures);
+
+        _.map(vmMeasures, vmMeasure=>{
+           vmMeasure.attach(this.linePart);
+        });
 
         this.linePart.refresh();
     }

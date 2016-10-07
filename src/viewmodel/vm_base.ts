@@ -56,7 +56,6 @@ export class vm_Base{
         vm_counter +=1;
         this.id = vm_counter.toString();
         element.attr("id", this.id);
-        this.elem = $('#' + this.id);
 
         element.on('click', this.onClick(this));
     }
@@ -76,6 +75,7 @@ export class vm_Base{
             this.elem.detach();
         }
         parentVM.addChild(this);
+        this.parent = parentVM;
         if (parentVM.elem != null && this.elem!=null){
             this.elem.appendTo(parentVM.elem);
         }else if (parentVM.elem == null){
@@ -93,7 +93,11 @@ export class vm_Base{
 
     remove() {
         if (this.elem!=null){
-            _.map(this.children, child=>child.remove());
+            let childrens = _.map(this.children, vm=>vm);
+            _.map(childrens, child=>child.remove());
+            if (this.parent != null){
+                this.parent.detachChild(this);
+            }
             this.elem.remove();
         }
     }

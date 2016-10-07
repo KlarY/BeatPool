@@ -7,7 +7,7 @@ import {Measure} from "../model/Measure";
 
 export class vm_Measure extends vm_Base{
     name:string = "measure";
-    constructor(parent:vm_Base, element:any = null){
+    constructor(parent:vm_Base=null, element:any = null){
         super(parent, element);
         this.elem.addClass(this.name);
         this.option({
