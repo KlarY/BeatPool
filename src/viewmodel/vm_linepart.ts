@@ -43,7 +43,7 @@ export class vm_LinePart extends vm_Base{
 
         let takes:number = 0;
 
-        while (_.sum(_.map(_.take(vmMeasures, takes), 'width')) <= this.width - 20){
+        while (takes <= vmMeasures.length && _.sum(_.map(_.take(vmMeasures, takes), 'width')) <= this.width - 20){
             takes += 1;
         }
         takes -= 1;

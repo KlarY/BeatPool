@@ -16,9 +16,10 @@ import {vm_Page} from "../viewmodel/vm_page";
 
 let soundTrack = new SoundTrack(0, DurationPack.full * 8);
 
-soundTrack.insertSounds([
-    new Sound(SoundPack.C1, DurationPack.eighth),
-    new Sound(SoundPack.D1, DurationPack.x32nd)
+soundTrack.batchInsert([
+    [0, new Sound(SoundPack.C1, DurationPack.eighth)],
+    [DurationPack.eighth, new Sound(SoundPack.D1, DurationPack.x32nd)],
+    [DurationPack.full*4, new Sound(SoundPack.A4, DurationPack.quarter)]
 ]);
 
 let part = new Part(0, DurationPack.full*8, soundTrack);
@@ -102,7 +103,6 @@ export class ScoreService{
 
         console.log(vmMeasures);
 
-        this.linePart.takeMeasures(vmMeasures);
-
+        this.page.takeMeasures(vmMeasures);
     }
 }
