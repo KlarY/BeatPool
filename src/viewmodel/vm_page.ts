@@ -11,8 +11,7 @@ export class vm_Page extends vm_Base{
         console.log('initial with ', this.name);
         this.elem.addClass(this.name);
         this.option({
-            selectable:true,
-            moveable: true
+            selectable:true
         });
     }
 
@@ -27,7 +26,7 @@ export class vm_Page extends vm_Base{
         vmLinePart.left = 50;
 
         if (this.children.length == 1){
-            vmLinePart.baseline = 600;
+            vmLinePart.baseline = 900;
         }else if (this.children[this.children.length-2].baseline > 150){
             vmLinePart.baseline = this.children[this.children.length-2].baseline - 150;
         }
