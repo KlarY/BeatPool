@@ -1,0 +1,10 @@
+.title{
+  display: block;
+  position: absolute;
+
+  background-color: mediumpurple;
+
+  &.selected{
+    outline: solid 2px lightcoral;
+  }
+}

@@ -1,3 +1,4 @@
+import * as $ from "jquery";
 import {vm_Base} from "../vm_base";
 
 export class MoveDelegate{

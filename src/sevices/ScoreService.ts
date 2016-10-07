@@ -29,7 +29,6 @@ export let Score = part;
 
 export class ScoreService{
     editor: vm_Editor;
-    linePart: vm_LinePart;
     page: vm_Page;
 
     init(){
