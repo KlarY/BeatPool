@@ -14,7 +14,7 @@ import {Sound, SoundPack} from "../model/Sound";
 import {menuService} from "./MenuService";
 import {vm_Page} from "../viewmodel/vm_page";
 
-let soundTrack = new SoundTrack(0, DurationPack.full * 8);
+let soundTrack = new SoundTrack(0, DurationPack.full * 40);
 
 soundTrack.batchInsert([
     [0, new Sound(SoundPack.C1, DurationPack.eighth)],
@@ -22,7 +22,7 @@ soundTrack.batchInsert([
     [DurationPack.full*4, new Sound(SoundPack.A4, DurationPack.quarter)]
 ]);
 
-let part = new Part(0, DurationPack.full*8, soundTrack);
+let part = new Part(0, DurationPack.full*40, soundTrack);
 part.init(DurationPack.quarter, 4);
 
 export let Score = part;
@@ -34,15 +34,6 @@ export class ScoreService{
 
     init(){
         console.log(part.measures.length);
-
-        this.page = new vm_Page(this.editor);
-
-        this.page.width = 794;
-        this.page.height = 1123;
-        this.page.baseline = 20;
-        this.page.left = 20;
-
-        this.linePart = new vm_LinePart(this.page);
 
         this.update();
 
@@ -79,18 +70,6 @@ export class ScoreService{
     }
 
     update(){
-
-        this.linePart = <vm_LinePart>this.page.children[0];
-
-        this.linePart.height = 150;
-        this.linePart.width = 700;
-        this.linePart.left = 50;
-        this.linePart.baseline = 500;
-
-        let _oldVmMeasures = _.map(this.linePart.children, vm=>vm);
-        _.map(_oldVmMeasures, vm=>vm.remove());
-
-
         let vmMeasures = _.map(part.measures, measure=>{
             let vmMeasure = new vm_Measure();
             vmMeasure.bindNotation(measure);
@@ -103,6 +82,6 @@ export class ScoreService{
 
         console.log(vmMeasures);
 
-        this.page.takeMeasures(vmMeasures);
+        this.editor.takeMeasures(vmMeasures);
     }
 }
