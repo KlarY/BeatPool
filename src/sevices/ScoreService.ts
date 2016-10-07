@@ -82,7 +82,7 @@ export class ScoreService{
         this.linePart = <vm_LinePart>this.page.children[0];
 
         this.linePart.height = 150;
-        this.linePart.width = 1000;
+        this.linePart.width = 700;
         this.linePart.left = 50;
         this.linePart.baseline = 500;
 
@@ -102,10 +102,7 @@ export class ScoreService{
 
         console.log(vmMeasures);
 
-        _.map(vmMeasures, vmMeasure=>{
-           vmMeasure.attach(this.linePart);
-        });
+        this.linePart.takeMeasures(vmMeasures);
 
-        this.linePart.refresh();
     }
 }

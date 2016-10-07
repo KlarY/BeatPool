@@ -35,6 +35,28 @@ export class vm_LinePart extends vm_Base{
         }else if (this.children[this.children.length-2].left + 140 * 2 < this.width){
             vmMeasure.left = this.children[this.children.length-2].left + 140;
         }
+        return vmMeasure;
+    }
+
+    takeMeasures(vmMeasures: vm_Measure[]):vm_Measure[]{
+        this.removeChildren();
+
+        let takes:number = 0;
+
+        while (_.sum(_.map(_.take(vmMeasures, takes), 'width')) <= this.width - 20){
+            takes += 1;
+        }
+        takes -= 1;
+
+        let rest = _.takeRight(vmMeasures, vmMeasures.length - takes);
+
+        let taked = _.take(vmMeasures, takes);
+        _.map(taked, vm=>vm.attach(this));
+        this.refresh();
+
+        console.log(`totol width while take ${_.sum(_.map(taked, 'width'))}`);
+
+        return rest;
     }
 
     refresh(){
@@ -48,5 +70,7 @@ export class vm_LinePart extends vm_Base{
             vm.left = offset;
             return vm.width + offset;
         }, 10);
+
+        console.log(`totol width after refresh ${_.sum(_.map(this.children, 'width'))}`);
     }
 }

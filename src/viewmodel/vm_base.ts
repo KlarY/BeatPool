@@ -102,6 +102,11 @@ export class vm_Base{
         }
     }
 
+    removeChildren(){
+        let childrens = _.map(this.children, vm=>vm);
+        _.map(childrens, child=>child.remove());
+    }
+
     option(options: any){
         if ( _.has(options, 'selectable') ) this.selectable = options['selectable'];
         if ( _.has(options, 'resizeable') ) this.resizeable = options['resizeable'];
