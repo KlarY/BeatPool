@@ -3,6 +3,7 @@ import {ResizeDelegate} from "./delegate/resizeDelegate";
 import * as _ from "lodash";
 import {SelectService} from "../sevices/selectService";
 import {BaseNotation} from "../model/BaseNotation";
+import {MoveDelegate} from "./delegate/movedelegate";
 
 let vm_counter = 0;
 
@@ -16,8 +17,8 @@ export class vm_Base{
 
     private _width: number = 0;
     private _height: number = 0;
-    private _bottom: number = 0;
-    private _left: number = 0;
+    _bottom: number = 0;
+    _left: number = 0;
 
     private _select: boolean = false;
 
@@ -27,8 +28,8 @@ export class vm_Base{
     private moveable:boolean = false;
 
     // movement
-    private startPos: [number, number] = [0,0]; // left, bottom
-    private startMousePos: [number, number] = [0,0]; // pageX, pageY
+    _startPos: [number, number] = [0,0]; // left, bottom
+    _startMousePos: [number, number] = [0,0]; // pageX, pageY
 
     constructor(parent:vm_Base, element: any = null){
         this.parent = parent;
@@ -119,10 +120,11 @@ export class vm_Base{
     refresh(){} // up to bottom
 
     enableDrag(){
-        this.elem.on('mousedown', this.onMouseDown(this));
+        this.elem.on('mousedown', MoveDelegate.onMouseDown(this));
     }
 
     disableDrag(){
+        this.elem.removeClass('');
         this.elem.unbind('mousedown');
     }
 
@@ -144,27 +146,6 @@ export class vm_Base{
         }
     }
 
-    onMouseDown($this: vm_Base){
-        return (evt:any)=>{
-            $this.startMousePos = [evt.pageX, evt.pageY];
-            $this.startPos = [$this._left, $this._bottom];
-            $(document).on('mousemove', this.onMouseMove(this));
-            $(document).on('mouseup', this.onMouseUp(this));
-
-
-            console.log('parent:',$this.parent.width, $this.parent.height,',width:', $this.parent.height, $this.height);
-            evt.stopPropagation();
-        }
-    }
-
-    onMouseUp($this: vm_Base){
-        return (evt:any)=>{
-            $(document).unbind('mousemove');
-            $(document).unbind('mouseup');
-            evt.stopPropagation();
-        }
-    }
-
     static inrange(val: number, left: number, right: number){
         if (val < left){
             return left;
@@ -172,19 +153,6 @@ export class vm_Base{
             return right;
         }else {
             return val;
-        }
-    }
-
-    onMouseMove($this: vm_Base){
-        return (evt:any)=>{
-
-            let nLeft = evt.pageX -($this.startMousePos[0] - $this.startPos[0]);
-            let nBottom = $this.startMousePos[1] + $this.startPos[1] - evt.pageY;
-
-            $this.left = vm_Base.inrange(nLeft, 0, $this.parent.width - $this.width);
-            $this.baseline = vm_Base.inrange(nBottom, 0, $this.parent.height - $this.height);
-
-            evt.stopPropagation();
         }
     }
 
