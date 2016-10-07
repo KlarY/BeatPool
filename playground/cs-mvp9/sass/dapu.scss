@@ -1,0 +1,42 @@
+
+@import "utils/_init";
+
+@import "gadget/_vm_resize";
+
+@import "utils/_clearfix";
+
+@import "view-model/editor";
+@import "view-model/measure";
+@import "view-model/note";
+@import "view-model/linepart";
+@import "view-model/title";
+@import "view-model/page";
+
+@import "menu/main_menu";
+
+body{
+  background-color: darkslategrey;
+  height: 100%;
+  width: 100%;
+
+  overflow: hidden;
+}
+
+#app{
+  @include clearfix();
+  display: block;
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+}
+
+#editor-zone{
+  display: block;
+
+  margin-top: 100px;
+  width: 100%;
+  height: 100vh;
+
+  overflow: auto;
+}

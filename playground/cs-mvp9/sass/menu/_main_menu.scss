@@ -1,0 +1,15 @@
+#menu{
+  @include clearfix();
+
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100px;
+
+  top: 0;
+
+  background-color: #e8eef7;
+  box-shadow: 0 2px 5px gray;
+
+  z-index: 100;
+}

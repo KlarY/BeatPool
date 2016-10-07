@@ -1,0 +1,46 @@
+.note{
+  position: absolute;
+  display: block;
+
+  height: 20px;
+  width: 10px;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  background-color: transparent;
+
+  text-align:center;
+
+  user-select: none;
+  cursor: hand;
+
+  &.selected{
+    background-color: lightcyan;
+    color: #0b97c4;
+    &.bearer:after{
+      border-bottom: solid 2px #0b97c4;
+    }
+    &.double-bearer:after{
+      border-bottom: double 5px #0b97c4;
+    }
+  }
+
+  &.bearer{
+    &:after{
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      border-bottom: solid 2px black;
+    }
+  }
+
+  &.double-bearer:after{
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    border-bottom: double 5px black;
+  }
+}

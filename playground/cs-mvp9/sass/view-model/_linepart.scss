@@ -1,0 +1,13 @@
+.linepart{
+  position: absolute;
+  display: block;
+
+  background-color: lightskyblue;
+  width: 200px;
+  height: 100px;
+
+  &.selected{
+    outline: dimgray solid;
+    cursor: move;
+  }
+}
