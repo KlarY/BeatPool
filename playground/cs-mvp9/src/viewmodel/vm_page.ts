@@ -38,8 +38,10 @@ export class vm_Page extends vm_Base{
         let rest = _.clone(measures);
 
         _.map(this.children, child=>{
-           let vm:vm_LinePart = <vm_LinePart>child;
-            rest = vm.takeMeasures(rest);
+            if (child.name == 'linepart'){
+                let vm:vm_LinePart = <vm_LinePart>child;
+                rest = vm.takeMeasures(rest);
+            }
         });
 
         // debugger;

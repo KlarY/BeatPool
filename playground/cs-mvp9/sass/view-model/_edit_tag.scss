@@ -1,0 +1,16 @@
+.edit_tag{
+  position: absolute;
+  display: block;
+
+  background-color: palevioletred;
+  &.selected{
+    border: solid 1px dodgerblue;
+  }
+
+  input{
+    position: absolute;
+    display: block;
+    background-color: transparent;
+    text-align: center;
+  }
+}

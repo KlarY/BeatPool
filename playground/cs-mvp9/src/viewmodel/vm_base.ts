@@ -31,7 +31,7 @@ export class vm_Base{
     _startPos: [number, number] = [0,0]; // left, bottom
     _startMousePos: [number, number] = [0,0]; // pageX, pageY
 
-    constructor(parent:vm_Base, element: any = null){
+    constructor(parent:vm_Base = null, element: any = null){
         this.parent = parent;
         this.children = [];
 

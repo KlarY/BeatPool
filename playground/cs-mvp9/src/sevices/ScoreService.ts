@@ -13,6 +13,8 @@ import {SelectService} from "./selectService";
 import {Sound, SoundPack} from "../model/Sound";
 import {menuService} from "./MenuService";
 import {vm_Page} from "../viewmodel/vm_page";
+import {vm_Title} from "../viewmodel/vm_title";
+import {vm_EditTag} from "../viewmodel/vm_EditTag";
 
 let soundTrack = new SoundTrack(0, DurationPack.full * 40);
 
@@ -33,6 +35,24 @@ export class ScoreService{
 
     init(){
         console.log(part.measures.length);
+
+        let vmPage = this.editor.insertPage();
+
+        let vmTitle = new vm_Title(vmPage);
+        vmTitle.height = 200;
+        vmTitle.width = vmPage.width;
+        vmTitle.baseline = 900;
+        vmTitle.left = 0;
+
+        let vmEditTag = new vm_EditTag(vmTitle);
+
+        vmEditTag.height = 100;
+        vmEditTag.width = 100;
+        vmEditTag.baseline = 30;
+        vmEditTag.left = vmTitle.width / 2 - 50;
+        vmEditTag.fontSize = 60;
+        vmEditTag.content = "Best Score";
+
 
         this.update();
 
