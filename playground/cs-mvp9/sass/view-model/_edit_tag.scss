@@ -2,7 +2,7 @@
   position: absolute;
   display: block;
 
-  background-color: palevioletred;
+  //background-color: palevioletred;
   &.selected{
     border: solid 1px dodgerblue;
     cursor: move;
@@ -15,7 +15,7 @@
   input{
     position: absolute;
     display: block;
-    background-color: transparent;
+    //background-color: transparent;
     text-align: center;
     cursor: default;
     &:focus{

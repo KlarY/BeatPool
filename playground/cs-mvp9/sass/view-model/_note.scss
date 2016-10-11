@@ -1,4 +1,8 @@
+@import "../utils/unselectable";
+
 .note{
+  @include unselectable();
+
   position: absolute;
   display: block;
 

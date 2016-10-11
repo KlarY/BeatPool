@@ -1,4 +1,7 @@
+@import "../utils/unselectable";
 .measure{
+  @include unselectable();
+
   position: absolute;
   display:block;
 
@@ -9,7 +12,7 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 
-  background-color: gold;
+  //background-color: gold;
 
   border-left: black 2px solid;
 

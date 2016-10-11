@@ -1,8 +1,12 @@
+@import "../utils/unselectable";
+
 .linepart{
+  @include unselectable();
+
   position: absolute;
   display: block;
 
-  background-color: lightskyblue;
+  //background-color: lightskyblue;
   width: 200px;
   height: 100px;
 
