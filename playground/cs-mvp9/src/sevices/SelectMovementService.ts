@@ -5,15 +5,17 @@ import {vm_Note} from "../viewmodel/vm_note";
 
 export class SelectMovementService{
     constructor(){
-        KeyboardServices.rigister("editor", "right", ()=>{
+        KeyboardServices.rigister("editor", "right", (e:any)=>{
             if (SelectService.getSelected() instanceof vm_Note){
                 SelectService.selectNextNote(Score, (<vm_Note>SelectService.getSelected()).notation.startTime);
+                e.preventDefault();
             }
         });
-        KeyboardServices.rigister("editor", "left", ()=>{
+        KeyboardServices.rigister("editor", "left", (e:any)=>{
             console.log('left');
             if (SelectService.getSelected() instanceof  vm_Note){
                 SelectService.selectPrevNote(Score, (<vm_Note>SelectService.getSelected()).notation.startTime);
+                e.preventDefault();
             }
         })
     }
