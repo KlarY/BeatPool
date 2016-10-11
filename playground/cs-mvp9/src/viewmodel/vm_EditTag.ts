@@ -28,6 +28,11 @@ export class vm_EditTag extends vm_Base{
             this.content = this.inputElem.val();
         }).change(()=>{
             this.inputElem.blur();
+        }).focus(()=>{
+            if (this.select == false){
+                this.inputElem.blur();
+                this.select = true;
+            }
         })
     }
 

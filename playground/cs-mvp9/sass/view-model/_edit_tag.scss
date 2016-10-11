@@ -5,6 +5,11 @@
   background-color: palevioletred;
   &.selected{
     border: solid 1px dodgerblue;
+    cursor: move;
+
+    input{
+      cursor: move;
+    }
   }
 
   input{
@@ -12,5 +17,10 @@
     display: block;
     background-color: transparent;
     text-align: center;
+    cursor: default;
+    &:focus{
+      outline: none;
+      cursor: text;
+    }
   }
 }
